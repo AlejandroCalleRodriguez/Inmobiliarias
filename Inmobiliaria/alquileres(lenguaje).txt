@@ -1,0 +1,318 @@
+create database alquileres;
+
+use alquileres;
+
+create table Viviendas(
+	id_vivienda varchar(2) not null,
+	primary key (id_vivienda),
+	dirección varchar(30) not null,
+	código_postal varchar(5) not null,
+	población varchar(30) not null,
+	venta_futura boolean not null,
+	precio_venta int unsigned,
+	cocina varchar(20) not null,
+	habitaciones int unsigned not null,
+	baños int unsigned not null,
+	nuevo boolean not null,
+	metros_cuadrados int unsigned not null,
+	mascotas boolean not null,
+	tipo enum ('Piso', 'Chalet') not null,
+	estado varchar(100)
+);
+
+create table Agencias_Inmobiliarias(
+	id_agencia varchar(2) not null,
+	primary key (id_agencia),
+	CIF varchar(9) not null,
+	dirección varchar(30) not null,
+	teléfono int unsigned not null,
+	email varchar(60)
+);
+
+create table Inquilinos(
+	id_inquilino varchar(2),
+	NIF varchar(9) not null,
+	primary key (id_inquilino),
+	nombre varchar (30) not null,
+	apellidos varchar(30) not null,
+	fecha_de_nacimiento date not null,
+	teléfono int unsigned not null
+);
+
+
+create table Propietarios(
+	id_propietario varchar(2),
+	primary key (id_propietario),
+	NIF varchar(9) not null,
+	nombre varchar (30) not null,
+	apellidos varchar(30) not null,
+	teléfono int unsigned
+);
+
+create table Piso(
+	garaje_comunitario boolean,
+	terraza boolean
+);
+
+create table Chalet(
+	garaje_particular boolean
+);
+
+alter table Viviendas add id_agencia varchar(2);
+alter table Viviendas add foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia);
+alter table Viviendas add id_propietario varchar(2);
+alter table Viviendas add foreign key (id_propietario) references Propietarios (id_propietario);
+
+alter table Inquilinos add id_agencia varchar(2);
+alter table Inquilinos add foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia);
+
+alter table Propietarios add id_vivienda varchar(2);
+alter table Propietarios add foreign key (id_vivienda) references Viviendas (id_vivienda);
+
+alter table Piso add id_vivienda varchar(2);
+alter table Piso add foreign key (id_vivienda) references Viviendas (id_vivienda);
+
+alter table Chalet add id_vivienda varchar(2);
+alter table Chalet add foreign key (id_vivienda) references Viviendas (id_vivienda);
+
+
+create table Gestionan(
+	id_vivienda varchar(2),
+	foreign key (id_vivienda) references Viviendas (id_vivienda),
+	id_agencia varchar(2),
+	foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia)
+);
+
+create table contrata_alquiler(
+	id_alquiler varchar(2) not null,
+	primary key (id_alquiler),
+	importe_mensual int unsigned not null,
+	fianza int unsigned not null,
+	fecha_firma date not null,
+	fecha_de_inicio date not null,
+	fecha_de_fin date not null,
+	comentarios varchar(300),
+	renovación boolean not null,
+	id_agencia varchar(2),
+	foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia),
+	id_inquilino varchar(2),
+	foreign key(id_inquilino) references Inquilinos (id_inquilino)
+);
+
+alter table Agencias_Inmobiliarias add id_alquiler varchar(2);
+alter table Agencias_Inmobiliarias add foreign key(id_alquiler) references contrata_alquiler(id_alquiler);
+
+alter table Inquilinos add id_alquiler varchar(2);
+alter table Inquilinos add foreign key(id_alquiler) references contrata_alquiler(id_alquiler);
+
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("01", "B30801807", "Calle del valle 10", "987657789", "info@agenciamaravillas.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("02", "A12312358", "Calle de la agencia 1", "951420769", "info@tupisoahora.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("03", "Z14681473", "Calle de la agencia 9", "956312665", "info@tucasasoñada.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("04", "N11584546", "Avenida del alquiler 17", "911776655", "info@tufuturo.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("05", "J67237813", "Plaza del pato 9", "928871625", "info@alquilaahora.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("06", "R12312313", "Calle de la graduación 65", "900664332", "info@inmobiliarisima.es");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("07", "A12371289", "Plaza del mundo 90", "944136118", "info@alquilermundial.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("08", "I81231272", "Avenida del homenaje 20", "937761817", "info@revevienda.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("09", "Q12378123", "Calle del mausoleo 13", "915566789", "info@geniodelacasa.com");
+insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("10", "P15235123", "Calle de las flores 43", "955667889", "info@tortucasa.com");
+
+
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("01", "10", "2A", "28300", "Aranjuez", "Calle Calvario", 1, 100000, "Nouvelle Cuisine", 5, 2, 1, 140, 1, 'Piso', "En perfecto estado");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("02", "24", "3B", "08001", "Barcelona", "Carrer de Cristiano", 0, null, "Cocina Tradicional", 2, 1, 0, 90, 0, 'Piso', "Tiene humedades");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("03", "15", null, "28300", "Aranjuez", "Calle de los Rosales", 1, 300000, "Nouvelle Cuisine", 8, 3, 1, 300, 1, 'Chalet', "Ha sido ocupada y tiene desperfectos");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("04", "03", "1A", "45223", "Seseña", "Avenida de la obra", 1, 60000, "Cocina Tradicional", 3, 1, 0, 144, 1, 'Piso', "Las grietas y el estado de las paredes requieren una mano de pintura");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("05", "07", "1F", "08000", "Barcelona", "Plaça de Sant Joaquim", 0, null, "Creativa", 3, 2, 1, 150, 0, 'Piso', "En perfecto estado");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("06", "55", null, "28015", "Madrid", "Calle Emilio Carrere", 0, null, "Nouvelle Cuisine", 4, 2, 0, 167, 1, 'Chalet', "Las tuberías son de vieja construcción y conviene una nueva instalación");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("07", "22", "5B", "06004", "Badajoz", "Plaza de la constitución", 1, 160000, "Cocina Tradicional", 3, 1, 1, 140, 1, 'Piso', "Una habitación tiene humedades");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("08", "11", "3F", "06011", "Badajoz", "Avenida del padre", 0, null, "Creativa", 4, 1, 0, 132, 0, 'Piso', "En perfecto estado");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("09", "54", null, "30740", "San Pedro del Pinatar", "Paseo de la playa", 1, 400000, "Cocina Tradicional", 6, 3, 1, 250, 1, 'Chalet', "En perfecto estado");
+insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+values ("10", "98", "2Z", "28013", "Madrid", "Gran Vía", 0, null, "Cocina Tradicional", 4, 1, 0, 138, 1, 'Piso', "La cocina requiere una renovación");
+
+
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("01", 1, 0);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("02", 0, 1);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("04", 1, 1);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("05", 1, 1);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("07", 0, 0);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("08", 1, 0);
+insert into Piso(id_vivienda, terraza, garaje_comunitario) values("10", 1, 0);
+
+insert into Chalet(id_vivienda, garaje_particular) values("03", 1);
+insert into Chalet(id_vivienda, garaje_particular) values("06", 0);
+insert into Chalet(id_vivienda, garaje_particular) values("09", 1);
+
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("01", "56789009R", "Pedro", "Rosales Pérez", 19980720, 629876178);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("02", "91627387Y", "Julio", "Delafuente Calle", 20010107, 677197165);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("03", "71625398O", "Rosa", "González Ruiz", 19960815, 601827765);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("04", "61527381K", "Alicia", "Hita Lobo", 19861124, 671990052);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("05", "76689016J", "Monsterrat", "Sánchez Panadero", 19770917, 614253678);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("06", "55461720H", "Leidy", "Iglesias Rodríguez", 19941123, 681002980);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("07", "66789906G", "Alejandro", "Vega López", 19990330, 644567890);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("08", "78965780D", "Javier", "Rosales Pérez", 19890811, 637970029);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("09", "12930459M", "Adriana", "Cantos Huerta", 19930705, 671829019);
+insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("10", "55810987R", "Victoria", "Pacheco Baeza", 20030919, 667980098);
+
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("01", "66781729J", "Alfredo", "Villarejo Pinto", 661822029);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("02", "81771629U", "Lucía", "Viñes Llobregat", 681726178);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("03", "09817283L", "Fernando", "Pardo Socas", 611234412);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("04", "71829374H", "Alejandro", "Fernández Calle", 627377237);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("05", "17263484G", "Rodrigo", "Díaz Dimitrescu", 623213134);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("06", "22345512U", "Mariona", "Ítaca Carrer", 655215215);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("07", "72716368T", "Rafael", "Tezuka Nadal", 612982891);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("08", "21312344P", "Jorge", "Vivar Hoyos", 621481482);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("09", "12321344A", "Diego", "López Sánchez", 629814897);
+insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("10", "45590829H", "Carlos", "González Heras", 641294219);
+
+
+update viviendas set id_agencia = "01" where id_vivienda = "01";
+update viviendas set id_agencia = "01" where id_vivienda = "02";
+update viviendas set id_agencia = "03" where id_vivienda = "03";
+update viviendas set id_agencia = "04" where id_vivienda = "04";
+update viviendas set id_agencia = "01" where id_vivienda = "05";
+update viviendas set id_agencia = "05" where id_vivienda = "06";
+update viviendas set id_agencia = "02" where id_vivienda = "07";
+update viviendas set id_agencia = "03" where id_vivienda = "08";
+update viviendas set id_agencia = "07" where id_vivienda = "09";
+update viviendas set id_agencia = "10" where id_vivienda = "10";
+
+update viviendas set id_propietario = "01" where id_vivienda = "01";
+update viviendas set id_propietario = "03" where id_vivienda = "02";
+update viviendas set id_propietario = "04" where id_vivienda = "03";
+update viviendas set id_propietario = "05" where id_vivienda = "04";
+update viviendas set id_propietario = "03" where id_vivienda = "05";
+update viviendas set id_propietario = "02" where id_vivienda = "06";
+update viviendas set id_propietario = "02" where id_vivienda = "07";
+update viviendas set id_propietario = "05" where id_vivienda = "08";
+update viviendas set id_propietario = "08" where id_vivienda = "09";
+update viviendas set id_propietario = "10" where id_vivienda = "10";
+
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("01", 400, 400, 20220329, 20220401, 20230131, null, 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("02", 500, 450, 20210415, 20210501, 20220131, "El olor del bar de la calle es nauseabundo", 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("03", 600, 500, 20220426, 20220501, 20230430, null, 0);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("04", 300, 350, 20190213, 20210301, 20220331, "El patio compartido es inseguro", 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("05", 340, 400, 20181220, 20190101, 20220131, "El suelo del salón está inclinado", 0);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("06", 350, 350, 20180527, 20180601, 20200731, null, 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("07", 520, 550, 20220324, 20220401, 20230331, null, 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("08", 500, 700, 20200422, 20200501, 20210531, "El patio de vecinos no parece usarse", 0);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("09", 600, 1000, 20220730, 20220801, 20230930, null, 1);
+insert into contrata_alquiler(id_alquiler, importe_mensual, fianza, fecha_firma, fecha_de_inicio, fecha_de_fin, comentarios, renovación) values ("10", 430, 560, 20170426, 20170501, 20180630, null, 1);
+
+update contrata_alquiler set id_agencia = "01" where id_alquiler = "01";
+update contrata_alquiler set id_agencia = "03" where id_alquiler = "02";
+update contrata_alquiler set id_agencia = "04" where id_alquiler = "03";
+update contrata_alquiler set id_agencia = "05" where id_alquiler = "04";
+update contrata_alquiler set id_agencia = "06" where id_alquiler = "05";
+update contrata_alquiler set id_agencia = "01" where id_alquiler = "06";
+update contrata_alquiler set id_agencia = "01" where id_alquiler = "07";
+update contrata_alquiler set id_agencia = "02" where id_alquiler = "08";
+update contrata_alquiler set id_agencia = "04" where id_alquiler = "09";
+update contrata_alquiler set id_agencia = "06" where id_alquiler = "10";
+
+update contrata_alquiler set id_inquilino = "01" where id_alquiler = "01";
+update contrata_alquiler set id_inquilino = "02" where id_alquiler = "02";
+update contrata_alquiler set id_inquilino = "03" where id_alquiler = "03";
+update contrata_alquiler set id_inquilino = "04" where id_alquiler = "04";
+update contrata_alquiler set id_inquilino = "05" where id_alquiler = "05";
+update contrata_alquiler set id_inquilino = "06" where id_alquiler = "06";
+update contrata_alquiler set id_inquilino = "07" where id_alquiler = "07";
+update contrata_alquiler set id_inquilino = "08" where id_alquiler = "08";
+update contrata_alquiler set id_inquilino = "09" where id_alquiler = "09";
+update contrata_alquiler set id_inquilino = "10" where id_alquiler = "10";
+
+update Agencias_Inmobiliarias set id_alquiler = "01" where id_agencia = "01";
+update Agencias_Inmobiliarias set id_alquiler = "02" where id_agencia = "03";
+update Agencias_Inmobiliarias set id_alquiler = "03" where id_agencia = "04";
+update Agencias_Inmobiliarias set id_alquiler = "04" where id_agencia = "05";
+update Agencias_Inmobiliarias set id_alquiler = "05" where id_agencia = "06";
+update Agencias_Inmobiliarias set id_alquiler = "06" where id_agencia = "01";
+update Agencias_Inmobiliarias set id_alquiler = "07" where id_agencia = "01";
+update Agencias_Inmobiliarias set id_alquiler = "08" where id_agencia = "02";
+update Agencias_Inmobiliarias set id_alquiler = "09" where id_agencia = "04";
+update Agencias_Inmobiliarias set id_alquiler = "10" where id_agencia = "06";
+
+update Propietarios set id_vivienda = "01" where id_propietario = "01";
+update Propietarios set id_vivienda = "02" where id_propietario = "03";
+update Propietarios set id_vivienda = "03" where id_propietario = "04";
+update Propietarios set id_vivienda = "04" where id_propietario = "05";
+update Propietarios set id_vivienda = "05" where id_propietario = "03";
+update Propietarios set id_vivienda = "06" where id_propietario = "02";
+update Propietarios set id_vivienda = "07" where id_propietario = "02";
+update Propietarios set id_vivienda = "08" where id_propietario = "05";
+update Propietarios set id_vivienda = "09" where id_propietario = "08";
+update Propietarios set id_vivienda = "10" where id_propietario = "10";
+
+update Propietarios set id_vivienda = "01" where id_propietario = "01";
+update Propietarios set id_vivienda = "02" where id_propietario = "03";
+update Propietarios set id_vivienda = "03" where id_propietario = "04";
+update Propietarios set id_vivienda = "04" where id_propietario = "05";
+update Propietarios set id_vivienda = "05" where id_propietario = "03";
+update Propietarios set id_vivienda = "06" where id_propietario = "02";
+update Propietarios set id_vivienda = "07" where id_propietario = "02";
+update Propietarios set id_vivienda = "08" where id_propietario = "05";
+update Propietarios set id_vivienda = "09" where id_propietario = "08";
+update Propietarios set id_vivienda = "10" where id_propietario = "10";
+
+create user 'Julián' @localhost identified by 'contraseña';
+grant all on alquileres to Julián@localhost;
+show grants for Julián@localhost;
+create user 'Almudena' @localhost identified by 'contraseña';
+create user 'Julio' @localhost identified by 'contraseña';
+grant create, drop, delete, insert, select, update on alquileres.Viviendas to Almudena@localhost;
+grant select on alquileres to Julio@localhost;
+
+select round(avg(year(now())-year(fecha_de_nacimiento))) as 'Edad_media' from Inquilinos;
+
+select update contrata_alquiler set fianza = (fianza * 1.05);
+
+==
+insert into consultas_propietarios(id_vivienda, id_propietario) values("01", "01");
+==
+
+select * from contrata_alquiler where fecha_de_inicio between '2019-01-01' and '2022-01-01';
+///
+alter table Agencias_Inmobiliarias modify column CIF varchar(10);
+
+alter table contrata_alquiler modify column comentarios varchar(300);
+
+alter table Viviendas modify tipo enum ('Piso', 'Chalet');
+
+alter table consultas_propietarios add column nombre varchar(30);
+
+alter table consultas_propietarios add foreign key (id_vivienda) references Viviendas (id_vivienda);
+
+alter table propietarios drop column fecha_de_nacimiento;
+
+referencia a M1: consultas solo teóricas)
+
+select id_alquileres, count(*) as alquileres from contrata_alquiler group by id_agencia;
+
+/// NO : alter table Agencias_Inmobiliarias add id_vivienda varchar(2);
+/// NO : alter table Agencias_Inmobiliarias add foreign key(id_vivienda) references Viviendas (id_vivienda);
+
+
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Alfredo", "01", "01");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Lucía", "02", "06");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Lucía", "02", "07");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Fernando", "03", "02");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Fernando", "03", "05");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Alejandro", "04", "03");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Rodrigo", "05", "04");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Rodrigo", "05", "08");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Jorge", "08", "09");
+insert into consultas_propietarios (nombre, id_propietario, id_vivienda) values ("Carlos", "10", "10");
+
+
+
+
+
+

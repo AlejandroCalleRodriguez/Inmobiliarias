@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Viviendas</title>
+    <link rel="stylesheet" href="../assets/css/general.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="menuHorizontal">
+            <li><a href="../menu.html">Inicio</a></li>
+            <li><a href="../agencias/listas_agencia.html">Agencias</a>
+                <ul class="menuVertical">
+                    <li><a href="../agencias/form_agencia.html">Nueva Agencia</a></li>
+            </li>
+        </ul>
+        <li><a href="../viviendas/listado_viviendas.html">Viviendas</a>
+            <ul class="menuVertical">
+                <li><a href="../viviendas/form_viviendas.html">Nueva Vivienda</a></li>
+        </li>
+        </ul>
+        <li><a href="../propietarios/listado_propietarios.html">Propietarios</a>
+            <ul class="menuVertical">
+                <li><a href="../propietarios/form_propietarios.html">Nuevo Propietario</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="../inquilinos/listado_inquilinos.html">Inquilinos</a>
+            <ul class="menuVertical">
+                <li><a href="../inquilinos/form_inquilinos.html">Nuevo Inquilino</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="../galeria.html">Galería</a></li>
+        <li><a href="../contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <h1>Formulario de nueva Vivienda</h1>
+    <form>
+        <div id="formulario">
+            <div id="div" class="atributo">ID</div>
+            <div id="div" class="id">
+                <input type="number" name="id" id="id_vivienda" min="1" max="99">
+            </div>
+            <div id="div" class="atributo">Dirección</div>
+            <div id="div" class="direccion">
+                <input type="text" name="direccion" id="id_vivienda_direccion" minlength="1" maxlength="100">
+            </div>
+            <div id="div" class="atributo">Código Postal</div>
+            <div id="div" class="codigo_postal">
+                <input type="number" name="codigo_postal" id="id_vivienda_cp" min="10000" max="99999">
+            </div>
+            <div id="div" class="atributo">Población</div>
+            <div id="div" class="poblacion">
+                <input type="text" name="poblacion" id="id_vivienda_poblacion" minlength="1" maxlength="100">
+            </div>
+            <div id="div" class="atributo">Venta Futura</div>
+            <div id="div" class="venta_futura">
+                <div>
+                    <input type="radio" id="id_vivienda_ventasi" name="venta" value="Sí">
+                    <label for="id_vivienda_ventasi">Sí</label>
+                    <input type="radio" id="id_vivienda_ventano" name="venta" value="No">
+                    <label for="id_vivienda_ventano">No</label>
+                </div>
+            </div>
+            <div id="div" class="atributo">Precio</div>
+            <div id="div" class="precio">
+                <input type="number" name="id" id="id_vivienda" min="1" max="9999">
+            </div>
+            <label for="cocina">Cocina </label>
+            <input list="cocina">
+            <datalist id="cocina">
+                <option value="Nouvelle Cuisine">
+                <option value="Cocina Tradicional">
+                <option value="Cocina Moderna">
+            </datalist>
+            <div id="div" class="atributo">Habitaciones</div>
+            <div id="div" class="habitaciones">
+                <input type="number" name="id" id="id_vivienda" min="1" max="99">
+            </div>
+            <div id="div" class="atributo">Baños</div>
+            <div id="div" class="baños">
+                <input type="number" name="id" id="id_vivienda" min="1" max="99">
+            </div>
+            <div id="div" class="atributo">Nuevo</div>
+            <div id="div" class="nuevohogar">
+                <div>
+                    <input type="radio" id="id_vivienda_nuevosi" name="nuevo" value="Sí">
+                    <label for="id_vivienda_nuevosi">Sí</label>
+                    <input type="radio" id="id_vivienda_nuevono" name="nuevo" value="No">
+                    <label for="id_vivienda_nuevono">No</label>
+                </div>
+            </div>
+            <div id="div" class="atributo">Metros Cuadrados</div>
+            <div id="div" class="metros_cuadrados">
+                <input type="number" name="id" id="id_vivienda" min="1" max="99">
+            </div>
+            <div id="div" class="atributo">Mascotas</div>
+            <div id="div" class="mascotas">
+                <div>
+                    <input type="radio" id="id_vivienda_mascotasi" name="mascota" value="Sí">
+                    <label for="id_vivienda_mascotasi">Sí</label>
+                    <input type="radio" id="id_vivienda_mascotano" name="mascota" value="No">
+                    <label for="id_vivienda_mascotano">No</label>
+                </div>
+            </div>
+            <div id="div" class="atributo">Tipo</div>
+            <div>
+                <input type="radio" id="id_vivienda_piso" name="tipo" value="Piso">
+                <label for="id_vivienda_piso">Piso</label>
+                <input type="radio" id="id_vivienda_chalet" name="tipo" value="Chalet">
+                <label for="id_vivienda_chalet">Chalet</label>
+            </div>
+            <div id="div" class="atributo">Estado</div>
+            <div id="div" class="estado">
+                <input type="text" name="estado" id="id_vivienda_estado" minlength="1" maxlength="100">
+            </div>
+        </div>
+        <div class="botonera">
+            <input class="submit" type="submit" name="limpiar" value="Limpiar Formulario">
+            <input class="submit" type="submit" name="grabar" value="Grabar Vivienda">
+        </div>
+    </form>
+    <br>
+    <object id="footer" data="../footer.html" type="text/html"></object>
+</body>
+
+</html>

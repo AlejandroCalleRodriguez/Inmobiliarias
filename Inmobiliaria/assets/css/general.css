@@ -1,0 +1,203 @@
+/* Esto es una hoja de estilos para todo mi sitio web */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Quicksand:wght@400;500;600&family=Ubuntu:wght@300&display=swap");
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* variables */
+    --fuenteTítulos: "Quicksand", "sans-serif";
+    --fuenteTexto: "Ubuntu", "sans-serif";
+    --fuenteCodigo: "Fira Code", "monospace";
+/*   --color-resaltado: #23241f;
+    --color-fondo: bisque;
+    --color-texto: brown; */
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* variables */
+    --fuenteTítulos: "Quicksand", "sans-serif";
+    --fuenteTexto: "Ubuntu", "sans-serif";
+    --fuenteCodigo: "Fira Code", "monospace";
+/*    --color-resaltado: bisque;
+    --color-fondo: #1212c0;
+    --color-texto: coral; */
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  font-family: sans-serif;
+
+}
+
+h1 {
+  text-align: center;
+}
+section {
+  text-align: center;
+}
+
+nav {
+  max-width: 900px;
+  margin: auto;
+  background-color: #333;
+  font-size: 20px;
+  margin-top: 50px;
+  background-color: sienna;
+}
+.mySQL {
+  border-radius: 1rem;
+  font-family: var(--fuenteCodigo);
+  /* sombra del bloque */
+  -webkit-box-shadow: 0px 10px 20px 0px rgba(202, 16, 16, 0.75);
+  -moz-box-shadow: 0px 10px 20px 0px rgba(206, 16, 16, 0.75);
+  box-shadow: 0px 10px 20px 0px rgba(212, 7, 7, 0.75);
+  /* fin de sombra del bloque */
+  background-color: orange;
+  text-align: center;
+
+}
+
+
+
+form {
+  width: 600px;
+  margin: auto;
+  border-radius: 100px;
+  
+}
+.nuevo {
+  width: 20%;
+  padding: 10px;
+  border: 1px solid #000;
+  color: #fff;
+  background-color: brown;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+  
+}
+
+.nuevo:hover{
+  background-color: dodgerblue;
+}
+
+.menuHorizontal > li:hover .menuVertical{
+  display: block;
+
+}
+
+.menuHorizontal {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.menuHorizontal > li > a {
+  display: block;
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.menuHorizontal > li:hover {
+  background-color: red;
+}
+
+.menuVertical {
+  position: absolute;
+  display: none;
+  list-style-type: none;
+  width: 14rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  line-height: 2.5rem;
+}
+
+.menuVertical > li {
+  padding: 1rem;
+}
+
+
+.menuVertical > li:hover {
+  background-color: red;
+
+}
+
+.menuVertical > li > a {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 400px){
+  nav {
+      width: 100%;
+  }
+  .menuHorizontal {
+      flex-direction: column;
+  }
+}
+
+html {
+  font-size: 16px;
+  font-family: var(--fuenteTexto);
+
+}
+
+body {
+  padding: 0 5%;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  margin: center;
+}
+
+.atributo {
+  border: 1px solid black;
+
+}
+
+#formulario {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  
+}
+
+.galeria{
+  text-align: center;
+}
+.HND {
+  text-align: center;
+}
+
+
+#footer {
+  width: 400px;
+}
+
+tr,td {
+  height: 4em;
+  width: 14em;
+  border: solid 1px;
+  align-content: center;
+  margin: auto;
+}
+
+table {
+  border: solid 1px;
+  align-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+.submit{
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #000;
+  color: #fff;
+  background-color: brown;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+}

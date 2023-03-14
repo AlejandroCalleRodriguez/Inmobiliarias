@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="./assets/css/general.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="menuHorizontal">
+            <li><a href="../menu.html">Inicio</a></li>
+            <li><a href="../agencias/listas_agencia.html">Agencias</a>
+                <ul class="menuVertical">
+                    <li><a href="../agencias/form_agencia.html">Nueva Agencia</a></li>
+            </li>
+        </ul>
+        <li><a href="../viviendas/listado_viviendas.html">Viviendas</a>
+            <ul class="menuVertical">
+                <li><a href="../viviendas/form_viviendas.html">Nueva Vivienda</a></li>
+        </li>
+        </ul>
+        <li><a href="../propietarios/listado_propietarios.html">Propietarios</a>
+            <ul class="menuVertical">
+                <li><a href="../propietarios/form_propietarios.html">Nuevo Propietario</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="../inquilinos/listado_inquilinos.html">Inquilinos</a>
+            <ul class="menuVertical">
+                <li><a href="../inquilinos/form_inquilinos.html">Nuevo Inquilino</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="./galeria.html">Galería</a></li>
+        <li><a href="./contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <h1>Contacta con nosotros</h1>
+    <form>
+        <div id="formulario">
+            <div id="div" name="nombre" class="atributo">Nombre</div>
+            <div id="div" class="nombre">
+                <input type="text" name="direccion" id="id_contacto_nombre" minlength="1" maxlength="100">
+            </div>
+            <div id="div" class="atributo">Email</div>
+            <div id="div" class="email">
+                <input type="text" name="email" id="id_contacto_email" minlength="0" maxlength="100">
+            </div>
+            <div id="div" name="nombre" class="atributo">Asunto</div>
+            <div id="div" class="asunto">
+                <input type="text" name="direccion" id="id_contacto_nombre" minlength="1" maxlength="100">
+            </div>
+            <fieldset>
+                <textarea id="mensaje" name="mensaje" rows="10" cols="50" placeholder="Observaciones y/o comentarios"
+                    maxlength="1000"></textarea>
+            </fieldset>
+        </div>
+        <div class="botonera">
+            <input class="submit" type="submit" name="enviar" value="Enviar">
+        </div>
+    </form>
+    <img src="./assets/imgs/logo.png" alt="avatar">
+    <address>
+        Alejandro Calle Rodríguez
+        <br>
+        <a href="https://github.com/AlejandroCalleRodriguez">Perfil Github</a>
+        <br>
+        <a href="https://github.com/AlejandroCalleRodriguez/Inmobiliarias">Repositorio</a>
+        <br>
+        <a href="mailto:alejandrocallerodriguez_8301@escuelaces.net"
+          >alejandrocallerodriguez_8301@escuelaces.net</a>
+      </address>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.146776678433!2d-3.643501884292675!3d40.47201776019841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4228c886998c07%3A0x96c5dd550522e6c0!2sEscuela%20Superior%20de%20Imagen%20y%20Sonido%20CES!5e0!3m2!1ses!2ses!4v1678821215315!5m2!1ses!2ses" 
+      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</body>
+
+</html>

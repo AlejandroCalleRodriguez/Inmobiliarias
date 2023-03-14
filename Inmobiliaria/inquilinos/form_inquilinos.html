@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Inquilinos</title>
+    <link rel="stylesheet" href="../assets/css/general.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="menuHorizontal">
+            <li><a href="../menu.html">Inicio</a></li>
+            <li><a href="../agencias/listas_agencia.html">Agencias</a>
+                <ul class="menuVertical">
+                    <li><a href="../agencias/form_agencia.html">Nueva Agencia</a></li>
+            </li>
+        </ul>
+        <li><a href="../viviendas/listado_viviendas.html">Viviendas</a>
+            <ul class="menuVertical">
+                <li><a href="../viviendas/form_viviendas.html">Nueva Vivienda</a></li>
+        </li>
+        </ul>
+        <li><a href="../propietarios/listado_propietarios.html">Propietarios</a>
+            <ul class="menuVertical">
+                <li><a href="../propietarios/form_propietarios.html">Nuevo Propietario</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="../inquilinos/listado_inquilinos.html">Inquilinos</a>
+            <ul class="menuVertical">
+                <li><a href="../inquilinos/form_inquilinos.html">Nuevo Inquilino</a></li>
+        </li>
+        </ul>
+        </li>
+        <li><a href="../galeria.html">Galería</a></li>
+        <li><a href="../contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <form>
+        <h1>Formulario de nuevo Inquilino</h1>
+        <div id="formulario">
+            <div id="div" class="atributo">ID</div>
+            <div id="div" class="id">
+                <input type="number" name="id" id="id_inquilino" min="1" max="99">
+            </div>
+            <div id="div" class="atributo">NIF</div>
+            <div id="div" class="cif">
+                <input type="text" name="cif" id="id_inquilino_cif" minlength="1" maxlength="10">
+            </div>
+            <div id="div" name="nombre" class="atributo">Nombre</div>
+            <div id="div" class="nombre">
+                <input type="text" name="direccion" id="id_inquilino_nombre" minlength="1" maxlength="100">
+            </div>
+            <div id="div" name="apellidos" class="atributo">Apellidos</div>
+            <div id="div" class="apellidos">
+                <input type="text" name="direccion" id="id_inquilino_apellidos" minlength="1" maxlength="100">
+            </div>
+            <div id="div" class="atributo">Fecha de nacimiento</div>
+            <div id="div" class="fecha_nacimiento">
+                <input type="date" name="fecha_nacimiento" id="id_inquilino_nacimiento" minlength="0" maxlength="100">
+            </div>
+            <div id="div" class="atributo">Teléfono</div>
+            <div id="div" class="telefono">
+                <input type="tel" name="telefono" id="id_inquilino_telefono" minlength="0" maxlength="9">
+            </div>
+        </div>
+        <div class="botonera">
+            <input class="submit" type="submit" name="limpiar" value="Limpiar Formulario">
+            <input class="submit" type="submit" name="grabar" value="Grabar Inquilino">
+        </div>
+    </form>
+    <br>
+    <object id="footer" data="../footer.html" type="text/html"></object>
+</body>
+
+</html>

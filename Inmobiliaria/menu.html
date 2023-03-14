@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Índice</title>
+  <link rel="stylesheet" href="./assets/css/general.css" />
+</head>
+
+<body>
+  <nav>
+    <ul class="menuHorizontal">
+      <li><a href="menu.html">Inicio</a></li>
+      <li><a href="./agencias/listas_agencia.html">Agencias</a>
+        <ul class="menuVertical">
+          <li><a href="./agencias/form_agencia.html">Nueva Agencia</a></li>
+        </ul>
+      <li><a href="./viviendas/listado_viviendas.html">Viviendas</a>
+        <ul class="menuVertical">
+          <li><a href="./viviendas/form_viviendas.html">Nueva Vivienda</a></li>
+        </ul>
+      <li><a href="./propietarios/listado_propietarios.html">Propietarios</a>
+        <ul class="menuVertical">
+          <li><a href="./propietarios/form_propietarios.html">Nuevo Propietario</a></li>
+        </ul>
+      <li><a href="./inquilinos/listado_inquilinos.html">Inquilinos</a>
+        <ul class="menuVertical">
+          <li><a href="./inquilinos/form_inquilinos.html">Nuevo Inquilino</a></li>
+        </ul>
+      <li><a href="./galeria.html">Galería</a></li>
+      <li><a href="./contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+  <h1>Proyecto HTML/CSS</h1>
+  <section>
+    <article>
+      <p>
+        Esta es mi página web para el proyecto HTML/CSS de la asignatura Lenguaje de marcas
+      </p>
+    </article>
+  </section>
+  <div class="HND">
+    <figure>
+      <img src="./assets/imgs/DER_HND.png" alt="DiagramaEntidadRelacion">
+      <figcaption>Diagrama Entidad Relación</figcaption>
+    </figure>
+    <figure>
+      <img src="./assets/imgs/MER_HND.png" alt="ModeloEntidadRelacion">
+      <figcaption>Modelo Entidad Relación</figcaption>
+    </figure>
+  </div>
+
+  <pre>
+    <code class="mySQL">
+      create database alquileres;
+
+      use alquileres;
+      
+      create table Viviendas(
+        id_vivienda varchar(2) not null,
+        primary key (id_vivienda),
+        dirección varchar(30) not null,
+        código_postal varchar(5) not null,
+        población varchar(30) not null,
+        venta_futura boolean not null,
+        precio_venta int unsigned,
+        cocina varchar(20) not null,
+        habitaciones int unsigned not null,
+        baños int unsigned not null,
+        nuevo boolean not null,
+        metros_cuadrados int unsigned not null,
+        mascotas boolean not null,
+        tipo enum ('Piso', 'Chalet') not null,
+        estado varchar(100)
+      );
+      
+      create table Agencias_Inmobiliarias(
+        id_agencia varchar(2) not null,
+        primary key (id_agencia),
+        CIF varchar(9) not null,
+        dirección varchar(30) not null,
+        teléfono int unsigned not null,
+        email varchar(60)
+      );
+      
+      create table Inquilinos(
+        id_inquilino varchar(2),
+        NIF varchar(9) not null,
+        primary key (id_inquilino),
+        nombre varchar (30) not null,
+        apellidos varchar(30) not null,
+        fecha_de_nacimiento date not null,
+        teléfono int unsigned not null
+      );
+      
+      
+      create table Propietarios(
+        id_propietario varchar(2),
+        primary key (id_propietario),
+        NIF varchar(9) not null,
+        nombre varchar (30) not null,
+        apellidos varchar(30) not null,
+        teléfono int unsigned
+      );
+      
+      create table Piso(
+        garaje_comunitario boolean,
+        terraza boolean
+      );
+      
+      create table Chalet(
+        garaje_particular boolean
+      );
+      
+      alter table Viviendas add id_agencia varchar(2);
+      alter table Viviendas add foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia);
+      alter table Viviendas add id_propietario varchar(2);
+      alter table Viviendas add foreign key (id_propietario) references Propietarios (id_propietario);
+      
+      alter table Inquilinos add id_agencia varchar(2);
+      alter table Inquilinos add foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia);
+      
+      alter table Propietarios add id_vivienda varchar(2);
+      alter table Propietarios add foreign key (id_vivienda) references Viviendas (id_vivienda);
+      
+      alter table Piso add id_vivienda varchar(2);
+      alter table Piso add foreign key (id_vivienda) references Viviendas (id_vivienda);
+      
+      alter table Chalet add id_vivienda varchar(2);
+      alter table Chalet add foreign key (id_vivienda) references Viviendas (id_vivienda);
+      
+      
+      create table Gestionan(
+        id_vivienda varchar(2),
+        foreign key (id_vivienda) references Viviendas (id_vivienda),
+        id_agencia varchar(2),
+        foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia)
+      );
+      
+      create table contrata_alquiler(
+        id_alquiler varchar(2) not null,
+        primary key (id_alquiler),
+        importe_mensual int unsigned not null,
+        fianza int unsigned not null,
+        fecha_firma date not null,
+        fecha_de_inicio date not null,
+        fecha_de_fin date not null,
+        comentarios varchar(300),
+        renovación boolean not null,
+        id_agencia varchar(2),
+        foreign key (id_agencia) references Agencias_Inmobiliarias (id_agencia),
+        id_inquilino varchar(2),
+        foreign key(id_inquilino) references Inquilinos (id_inquilino)
+      );
+      
+      alter table Agencias_Inmobiliarias add id_alquiler varchar(2);
+      alter table Agencias_Inmobiliarias add foreign key(id_alquiler) references contrata_alquiler(id_alquiler);
+      
+      alter table Inquilinos add id_alquiler varchar(2);
+      alter table Inquilinos add foreign key(id_alquiler) references contrata_alquiler(id_alquiler);
+
+      insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("01", "B30801807", "Calle del valle 10", "987657789", "info@agenciamaravillas.com");
+      insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("02", "A12312358", "Calle de la agencia 1", "951420769", "info@tupisoahora.com");
+      insert into Agencias_Inmobiliarias(id_agencia, CIF, dirección, teléfono, email) values ("03", "Z14681473", "Calle de la agencia 9", "956312665", "info@tucasasoñada.com");
+
+      insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+      values ("01", "10", "2A", "28300", "Aranjuez", "Calle Calvario", 1, 100000, "Nouvelle Cuisine", 5, 2, 1, 140, 1, 'Piso', "En perfecto estado");
+      insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+      values ("02", "24", "3B", "08001", "Barcelona", "Carrer de Cristiano", 0, null, "Cocina Tradicional", 2, 1, 0, 90, 0, 'Piso', "Tiene humedades");
+      insert into Viviendas(id_vivienda, número, piso, código_postal, población, calle, venta_futura, precio_venta, cocina, habitaciones, baños, nuevo, metros_cuadrados, mascotas, tipo, estado)
+      values ("03", "15", null, "28300", "Aranjuez", "Calle de los Rosales", 1, 300000, "Nouvelle Cuisine", 8, 3, 1, 300, 1, 'Chalet', "Ha sido ocupada y tiene desperfectos");
+
+      insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("01", "56789009R", "Pedro", "Rosales Pérez", 19980720, 629876178);
+      insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("02", "91627387Y", "Julio", "Delafuente Calle", 20010107, 677197165);
+      insert into inquilinos(id_inquilino, NIF, nombre, apellidos, fecha_de_nacimiento, teléfono) values("03", "71625398O", "Rosa", "González Ruiz", 19960815, 601827765);
+
+      insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("01", "66781729J", "Alfredo", "Villarejo Pinto", 661822029);
+      insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("02", "81771629U", "Lucía", "Viñes Llobregat", 681726178);
+      insert into propietarios(id_propietario, NIF, nombre, apellidos, teléfono) values("03", "09817283L", "Fernando", "Pardo Socas", 611234412);
+    </code>
+</pre>
+  <object id="footer" data="../footer.html" type="text/html"></object>
+</body>
+
+</html>
